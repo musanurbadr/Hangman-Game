@@ -46,14 +46,25 @@ let randomvalue = nombervalue [randomvaluenomber];
 //set Category Info
 document.querySelector(".game-info .category  span" ).innerHTML = nombertext ;
 
+//select Letters Guess Element 
+let letterssContainr = document.querySelector(".letters-guess");
 
+//Convert Chosen Word To Arry 
+let letterArrySpce = Array.from(randomvalue);
 
+//Crete Span Depend On word 
 
+letterArrySpce.forEach(letter => {
+    let emptySpan = document.createElement("span");
 
-
-
-
-
+    // if letter 
+    if (letter === ''){
+        //add Class to the Span
+        emptyStor.className ='with-space';
+    }
+    //Append Span To The letter 
+    letterssContainr.appendChild(emptySpan);
+})
 
 
 
