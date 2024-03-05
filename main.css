@@ -173,7 +173,11 @@ hr{
     cursor: pointer;
     margin-bottom: 10px
 }
-
+.letters .leter-box.clicked {
+    background-color: #222;
+    opacity: .2;
+    pointer-events: none;
+}
 .letters-guess{
     margin: 10px auto;
     background-color: #f8f8f8;
@@ -191,7 +195,7 @@ hr{
     line-height: 60px;
     text-transform: uppercase;
     font-weight: bold;
-    background-color: #f8f8f8; 
+    background-color: #ffffff85; 
     border-bottom: 3px solid #222;
     transition: .3s;
 }

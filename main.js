@@ -64,10 +64,29 @@ letterArrySpce.forEach(letter => {
     }
     //Append Span To The letter 
     letterssContainr.appendChild(emptySpan);
-})
+});
 
+//Hndle Cike 
+document.addEventListener ("click" , (e) =>{
+    if(e.target.className === 'leter-box'){
 
+        e.target.classList.add("clicked");
 
+        //GET CLICKED LETTER
+        let theClikedLink = e.target.innerHTML.toLowerCase();
+
+        //the Chosen Word
+        let theChoseword = Array.from(randomvalue.toLowerCase());
+
+        // lettersandcpes 
+        theClikedLink.forEach((wordLetter , index )=> {
+            //if CLInde letter equal to ONE 
+            if(theChoseword == wordLetter ) {
+                console.log(`he ${index}`);
+            }
+        });
+    }
+});
 
 
 
