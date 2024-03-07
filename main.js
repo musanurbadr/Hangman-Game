@@ -1,11 +1,11 @@
 //  letter 
-const letters = "ABCDEFGHIJKLMNOPQRSTUWYZ";
+const letters = "ABCDEFGHIJKLMNOPQRSTUWYZ1234567890";
 
 //GET arrey From Letter 
 let lettersArray = Array.from(letters);
 
 //Select Letters Containr
-let lettersContenir = document.querySelector (".letters");
+let lettersContainer = document.querySelector (".letters");
 
 //genertre letter 
 lettersArray.forEach(letter => {
@@ -21,14 +21,14 @@ lettersArray.forEach(letter => {
     //Append The Letter To span
     span.className = "leter-box";
     // Append Span To the letters container
-    lettersContenir.appendChild(span);
+    lettersContainer.appendChild(span);
 });
 // Object of words 
 const words = {
-    programing :["js " , "python ", "php " , "css" , "html" , "sql" ],
+    programing : ["js" , "python", "php" , "css" , "html" , "sql"],
     tv : ["tr" , "ru" , 'rus' , 'bt' , 'tyt' ],
     corses : ["godzella" , "cs50",  "cs50x" , "yazilm"],
-    contre : ["londen" , "rus " , "turye" , "neywork" ],
+    contre : ["londen" , "rus" , "turye" , "neywork" ],
 }
 
 // let get Object
@@ -66,12 +66,22 @@ letterArrySpce.forEach(letter => {
     letterssContainr.appendChild(emptySpan);
 });
 
+//Selct Gues Span
+let guessSpan = document.querySelectorAll(".letters-guess span")
+
+// Set Wrong Attent 
+let worngAtttemet = 0;
+
+// Slet The drow Elmanet 
+let theDrow = document.querySelector(".hangman-draw")
+//Set the Chose Status
+let theStatus = false;
 //Hndle Cike 
 document.addEventListener ("click" , (e) =>{
+    //Set the Chose Status
+    let theStatus = false;
     if(e.target.className === 'leter-box'){
-
         e.target.classList.add("clicked");
-
         //GET CLICKED LETTER
         let theClikedLink = e.target.innerHTML.toLowerCase();
 
@@ -79,14 +89,63 @@ document.addEventListener ("click" , (e) =>{
         let theChoseword = Array.from(randomvalue.toLowerCase());
 
         // lettersandcpes 
-        theClikedLink.forEach((wordLetter , index )=> {
+        theChoseword.forEach((wordLetter , WonrdIndex )=> {
             //if CLInde letter equal to ONE 
-            if(theChoseword == wordLetter ) {
-                console.log(`he ${index}`);
+            if(theClikedLink == wordLetter ) {
+                //Set satus To Correk 
+                theStatus = true ;
+                // endGame1()
+                guessSpan.forEach((span , spanIndex) =>{
+                    //if span world 
+                    if (WonrdIndex === spanIndex){
+                        span.innerHTML = theClikedLink
+                    };
+                });
             }
         });
+        
+        //if letter is word
+        if(theStatus !== true ){
+            //inert 
+            worngAtttemet++;
+
+            //add Class Wrong 
+            theDrow.classList.add(`wrong-${worngAtttemet}`);
+            
+            
+            //Play Fail Sond 
+            document.getElementById("fail").play();
+
+            if(worngAtttemet ===9){
+                
+                endGame ();
+                lettersContainer.classList.add("finished");
+            }
+            
+        }else{
+            document.getElementById("success").play();
+        };
     }
 });
+
+function endGame(){
+    //cretet Poupup Div
+    let div = document.createElement("div");
+
+    //Create Text Elmetnt
+    let divText = document.createTextNode(`Game Over , The Word Is ${randomvalue}`);
+
+    //Apped child To tve 
+    div.appendChild(divText);
+
+    //add Class On div 
+    div.className = 'hode ';
+
+    //Append To the body 
+    document.body.appendChild(div);
+}
+
+
 
 
 
