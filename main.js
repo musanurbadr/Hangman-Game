@@ -76,11 +76,11 @@ let worngAtttemet = 0;
 let theDrow = document.querySelector(".hangman-draw")
 //Set the Chose Status
 let theStatus = false;
-//Hndle Cike 
-document.addEventListener ("click" , (e) =>{
+//Hndle Cike       
+document.addEventListener("click", (e) => {
     //Set the Chose Status
     let theStatus = false;
-    if(e.target.className === 'leter-box'){
+    if (e.target.className === 'leter-box' && !lettersContainer.classList.contains("finished")) {
         e.target.classList.add("clicked");
         //GET CLICKED LETTER
         let theClikedLink = e.target.innerHTML.toLowerCase();
@@ -89,51 +89,63 @@ document.addEventListener ("click" , (e) =>{
         let theChoseword = Array.from(randomvalue.toLowerCase());
 
         // lettersandcpes 
-        theChoseword.forEach((wordLetter , WonrdIndex )=> {
+        theChoseword.forEach((wordLetter, WonrdIndex) => {
             //if CLInde letter equal to ONE 
-            if(theClikedLink == wordLetter ) {
+            if (theClikedLink == wordLetter) {
                 //Set satus To Correk 
-                theStatus = true ;
+                theStatus = true;
                 // endGame1()
-                guessSpan.forEach((span , spanIndex) =>{
+                guessSpan.forEach((span, spanIndex) => {
                     //if span world 
-                    if (WonrdIndex === spanIndex){
+                    if (WonrdIndex === spanIndex) {
                         span.innerHTML = theClikedLink
                     };
                 });
             }
         });
-        
+
+        // if leter is true
+        if (theStatus === true) {
+
+        }
+
         //if letter is word
-        if(theStatus !== true ){
+        if (theStatus !== true) {
             //inert 
             worngAtttemet++;
 
             //add Class Wrong 
             theDrow.classList.add(`wrong-${worngAtttemet}`);
-            
-            
             //Play Fail Sond 
             document.getElementById("fail").play();
 
-            if(worngAtttemet ===9){
-                
-                endGame ();
+            if (worngAtttemet === 9) {
+                endGame("Game Over, You Lose! The Word Was: " + randomvalue);
                 lettersContainer.classList.add("finished");
             }
-            
-        }else{
+
+        } else {
             document.getElementById("success").play();
-        };
+            checkGameStatus();
+        }
     }
 });
 
-function endGame(){
+function checkGameStatus() {
+    // Check if all letters are guessed
+    let allLettersGuessed = [...guessSpan].every(span => span.innerHTML !== '&nbsp;');
+
+    if (allLettersGuessed) {
+        endGame("Congratulations, You Win! The Word Is: " + randomvalue);
+    }
+}
+
+function endGame(message) {
     //cretet Poupup Div
     let div = document.createElement("div");
 
     //Create Text Elmetnt
-    let divText = document.createTextNode(`Game Over , The Word Is ${randomvalue}`);
+    let divText = document.createTextNode(message);
 
     //Apped child To tve 
     div.appendChild(divText);
@@ -143,24 +155,7 @@ function endGame(){
 
     //Append To the body 
     document.body.appendChild(div);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 
 
